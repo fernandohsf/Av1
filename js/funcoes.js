@@ -22,7 +22,22 @@ function CampoObrigatorio(form) {
 //***********************************//
 //**FIM VALIDAÇÃO CAMPOS OBRIGATOROS*//
 //***********************************//
-
+function Imprimir() {
+	if(document.getElementById("sim").checked = true){
+		x1 = "Sim";
+	}else{x1 = "Nao"}
+    alert(
+	"\n CPF: " + document.getElementById("cpf").value +
+	"\n Nome: " + document.getElementById("nome").value +
+	"\n Endereco: " + document.getElementById("endereco").value +
+	"\n Cidade: " + document.getElementById("cidade").value +
+	"\n Sexo: " + document.getElementById("sexo").value +
+	"\n Telefone: " + document.getElementById("telefone").value +
+	"\n E-mail: " + document.getElementById("email").value +
+	"\n Receber promocoes: " + x1 +
+	"\n Obs: " + document.getElementById("obs").value
+	);
+}
 //***********************************//
 //***********VALIDAÇÃO CPF***********//
 //***********************************//

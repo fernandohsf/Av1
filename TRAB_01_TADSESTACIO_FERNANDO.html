@@ -62,15 +62,15 @@
 					</tr>
 					<tr>
 						<td>Nome:</td>
-						<td><input type = "text" size = "80" name = "nome" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this);return SomenteLetras(event)"/></td>
+						<td><input type = "text" size = "80" id = "nome" name = "nome" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this);return SomenteLetras(event)"/></td>
 					</tr>
 					<tr>
 						<td>Endereço:</td>
-						<td><input type = "text" size = "80" name = "endereco" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
+						<td><input type = "text" size = "80" id = "endereco" name = "endereco" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
 					</tr>
 					<tr>
 						<td>Cidade:</td>
-						<td><input type = "text" size = "50" name = "cidade" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
+						<td><input type = "text" size = "50" id = "cidade" name = "cidade" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
 					</tr>
 					<tr>
 						<td>Sexo:</td>
@@ -88,7 +88,7 @@
 					</tr>
 					<tr>
 						<td>E-mail(Login):</td>
-						<td><input type = "email" size = "40" class="obrigatorio" /></td>
+						<td><input type = "email" id = "email" size = "40" class="obrigatorio" /></td>
 					</tr>
 					<tr>
 						<td>Senha:</td>
@@ -109,8 +109,8 @@
 					</tr>
 					<tr>
 						<td colspan = "2" >
-							<input type = "submit" value = "Enviar" onclick = "alert(IsEmail(document.getElementById('email').value))" />
-							<input type = "button" value = "Valores" />
+							<input type = "submit" value = "Enviar" />
+							<input type = "button" value = "Valores" onclick = "Imprimir()" />
 						</td>
 					</tr>
 				</table>
