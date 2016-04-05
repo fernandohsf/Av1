@@ -1,24 +1,38 @@
+//***********************************//
+//INICIO VALIDAÇÃO CAMPOS OBRIGATOROS//
+//***********************************//
 function CampoObrigatorio(form) {
     for (var i = 0; i < form.elements.length; i++) {
-        if (form.elements[i].type == "text") {
+        if (form.elements[i].type == "text" || form.elements[i].type = "email" ||form.elements[i].type == "password") {
             if (form.elements[i].value == "" && form.elements[i].className == "obrigatorio") {
-                alert("Por favor, Preencha o Campo: " + form.elements[i].name);
+                alert("O campo: " + form.elements[i].name + " \u00e9 obrigat\u00f3rio.");
                 form.elements[i].focus();
                 return false;
                 break;
             }
+			if (document.getElementById("senha").value.length < 6){
+				alert("A senha deve conter no min\u00edmo 6 caracteres.");
+				return false;
+				break;
+			}
         }
     }
     return true;
 }
-//************************************//
-//***********VALIDAÇÃO CPF************//
-//************************************//
+//***********************************//
+//**FIM VALIDAÇÃO CAMPOS OBRIGATOROS*//
+//***********************************//
+
+//***********************************//
+//***********VALIDAÇÃO CPF***********//
+//***********************************//
 function validarCPF(){
    var cpf = document.formCadastroCliente.cpf.value;
    var filtro = /^\d{3}.\d{3}.\d{3}-\d{2}$/i;
    if(!filtro.test(cpf)){
-     window.alert("CPF inválido.");
+     window.alert("CPF inv\u00e1lido.");
+	 document.getElementById("cpf").focus();
+	 document.getElementById("cpf").value = "";
 	 return false;
    }
    
@@ -36,7 +50,9 @@ function validarCPF(){
 		cpf == "77777777777" ||
 		cpf == "88888888888" || 
 		cpf == "99999999999"){
-		window.alert("CPF inválido.");
+		window.alert("CPF inv\u00e1lido.");
+		document.getElementById("cpf").focus();
+		document.getElementById("cpf").value = "";
 		return false;
    }
 
@@ -47,7 +63,9 @@ function validarCPF(){
    if(resto == 10 || resto == 11)
 	 resto = 0;
    if(resto != parseInt(cpf.charAt(9))){
-	 window.alert("CPF inválido. Tente novamente.");
+	 window.alert("CPF inv\u00e1lido.");
+	 document.getElementById("cpf").focus();
+	 document.getElementById("cpf").value = "";
 	 return false;
    }
    soma = 0;
@@ -57,7 +75,9 @@ function validarCPF(){
    if(resto == 10 || resto == 11)
 	 resto = 0;
    if(resto != parseInt(cpf.charAt(10))){
-     window.alert("CPF inválido.");
+     window.alert("CPF inv\u00e1lido.");
+	 document.getElementById("cpf").focus();
+	 document.getElementById("cpf").value = "";
 	 return false;
    }
    return true;
@@ -69,14 +89,13 @@ function remove(str, sub) {
    r += str.substring(0,i) + remove(str.substring(i + sub.length), sub);
    return r;
  }
-//************************************//
-//***********FIM VALIDAÇÃO************//
-//************************************//
+//***********************************//
+//*********FIM VALIDAÇÃO CPF*********//
+//***********************************//
 
-
- //***********************************************//
-//**********FORMATAÇÃO(MASCARA) DO CPF***********//
-//***********************************************//
+ //**********************************//
+//*****FORMATAÇÃO(MASCARA) DO CPF****//
+//***********************************//
 function mascara(o,f){
 	v_obj=o
 	v_fun=f
@@ -86,56 +105,91 @@ function execmascara(){
 	v_obj.value=v_fun(v_obj.value)
 }
 function cpf_mask(v){
-	v=v.replace(/\D/g,"")                 //Remove tudo o que não é dígito
-	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o terceiro e o quarto dígitos
-	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o setimo e o oitava dígitos
-	v=v.replace(/(\d{3})(\d)/,"$1-$2")   //Coloca ponto entre o decimoprimeiro e o decimosegundo dígitos
+	v=v.replace(/\D/g,"")                 //Remove tudo o que n? ?d?ito
+	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o terceiro e o quarto d?itos
+	v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o setimo e o oitava d?itos
+	v=v.replace(/(\d{3})(\d)/,"$1-$2")   //Coloca ponto entre o decimoprimeiro e o decimosegundo d?itos
 	return v
 }
-//************************************//
-//***********FIM FORMATAÇÃO***********//
-//************************************//
+//***********************************//
+//*********FIM FORMATAÇÃO CPF********//
+//***********************************//
 
-
+//***********************************//
+//*********FORMATAÇÃO LETRAS*********//
+//***********************************//
+function SomenteLetras(e){
+    var tecla=(window.event)?event.keyCode:e.which;   
+    if((tecla >= 65 && tecla <= 90 || tecla >= 97 && tecla <= 122 || tecla == 32)) 
+		return true;
+    else{
+    	if (tecla==8 || tecla==0) 
+			return true;
+		else  
+			return false;
+    }
+}
+function VerificaSenha(e){
+    var tecla=(window.event)?event.keyCode:e.which;   
+    if((tecla >= 65 && tecla <= 90 || tecla >= 97 && tecla <= 122 || tecla >= 48 && tecla <= 57))
+		return true;
+    else{
+    	if (tecla==8 || tecla==0) 
+			return true;
+		else  
+			return false;
+    }
+}
 function ConverteMaiuscula(Campo) {
     Campo.value = Campo.value.toUpperCase();
 }
-function autoTab(input, e) {
-    var ind = 0;
-    var isNN = (navigator.appName.indexOf("Netscape") != -1);
-    var keyCode = (isNN) ? e.which : e.keyCode;
-    var nKeyCode = e.keyCode;
-    if (keyCode == 13) {
-        if (!isNN) {
-            window.event.keyCode = 0;
-        } // evitar o beep
-        ind = getIndex(input);
-        if (input.form[ind].type == 'textarea') {
-            return;
-        }
-        ind++;
-        input.form[ind].focus();
-        if (input.form[ind].type == 'text') {
-            input.form[ind].select();
-        }
-    }
+//***********************************//
+//*******FIM FORMATAÇÃO LETRAS*******//
+//***********************************//
 
-    function getIndex(input) {
-        var index = -1, i = 0, found = false;
-        while (i < input.form.length && index == - 1)
-            if (input.form[i] == input) {
-                index = i;
-                if (i < (input.form.length - 1)) {
-                    if (input.form[i + 1].type == 'hidden') {
-                        index++;
-                    }
-                    if (input.form[i + 1].type == 'button' && input.form[i + 1].id == 'tabstopfalse') {
-                        index++;
-                    }
-                }
-            }
-            else
-                i++;
-        return index;
-    }
+//***********************************//
+//*********VALIDAÇÃO CHECKBOX********//
+//***********************************//
+function VerificaCheckbox(id, visibility){
+	if(id == "sim"){
+		document.getElementById("sim").checked = true;
+		document.getElementById("nao").checked = false;
+		document.getElementById("msgPromocao").style.display = "inline";
+	}
+	if(id == "nao"){
+		document.getElementById("sim").checked = false;
+		document.getElementById("nao").checked = true;
+		document.getElementById("msgPromocao").style.display = "none";
+	}
 }
+//***********************************//
+//*******FIM VALIDAÇÃO CHECKBOX******//
+//***********************************//
+
+//***********************************//
+//*******INICIO VALIDAÇÃO SEXO*******//
+//***********************************//
+function VerificaSexo(){
+	if(document.getElementById("sexo").selectedIndex == 0){
+		alert("Sexo inv\u00e1lido.");
+		return false;
+	}
+}
+//***********************************//
+//*********FIM VALIDAÇÃO SEXO********//
+//***********************************//
+
+//***********************************//
+//*****INICIO VALIDAÇÃO TEXTAREA*****//
+//***********************************//
+function MaxCaracteres(){
+	if(formCadastroCliente.obs.value.length > 200){
+		alert("A observa\u00e7\u00e3o deve conter no m\u00e1ximo 200 caracteres.");
+		formCadastroCliente.obs.value = formCadastroCliente.obs.value.substr(0, 200);
+		formCadastroCliente.obs.focus();
+		return false;
+	}
+}
+//***********************************//
+//*******FIM VALIDAÇÃO TEXTAREA******//
+//***********************************//

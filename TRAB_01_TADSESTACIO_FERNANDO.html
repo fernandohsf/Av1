@@ -1,36 +1,81 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="js/funcoes.js" language="javascript"></script>
+		<title>Trabalho para Av1 - Terenciani</title>
+		<style>
+		table{
+			border: 1px solid #848484; 
+			-webkit-border-radius: 30px; 
+			-moz-border-radius: 30px; 
+			border-radius: 30px; 
+			outline:0; 
+			height:25px; 
+			padding-left:10px; 
+			padding-right:10px; 
+		}		
+		input{ 
+			border: 1px solid #848484; 
+			-webkit-border-radius: 30px; 
+			-moz-border-radius: 30px; 
+			border-radius: 30px; 
+			outline:0; 
+			height:25px; 
+			padding-left:10px; 
+			padding-right:10px; 
+		 }
+		 select{
+			border: 1px solid #848484; 
+			-webkit-border-radius: 30px; 
+			-moz-border-radius: 30px; 
+			border-radius: 30px; 
+			outline:0; 
+			height:25px; 
+			padding-left:10px; 
+			padding-right:10px; 
+		 }
+		#msgPromocao{
+			color: red;
+			display: none;
+		}
+		textarea{
+			resize:none;
+			width: 600px;
+			height: 50px;
+		}
+		</style> 
 	</head>
-	
 	<body>
-		<div id = "" >
-			<form name = "formCadastroCliente" action = "" onSubmit = "return CampoObrigatorio(this);" >
-				<table border = "1" >
+		<div id = "" align = "center">
+			<form name = "formCadastroCliente" action = "#" onSubmit = "VerificaSexo();return CampoObrigatorio(this); return validarCPF(this);" >
+				<table >
 					<tr>
-						<td colspan = "2" align = "center" >Cadastro de Clientes</td>
+						<td colspan = "2" align = "center" ><h3>Cadastro de Clientes</h3></td>
+					</tr>
+					<tr>
+						<td colspan = "2"><hr></hr></td>
 					</tr>
 					<tr>
 						<td>CPF:</td>
-						<td><input type = "text" size = "14" name = "cpf" class="obrigatorio" maxlength = "14" onchange="validarCPF(this)" onkeypress="mascara(this, cpf_mask);" /></td>
+						<td><input type = "text" size = "14" id = "cpf" name = "cpf" class="obrigatorio" maxlength = "14" onchange = "validarCPF(this);" onkeypress = "mascara(this, cpf_mask);" /></td>
 					</tr>
 					<tr>
 						<td>Nome:</td>
-						<td><input type = "text" size = "80" name = "nome" class="obrigatorio" onkeypress="ConverteMaiuscula(this)" /></td>
+						<td><input type = "text" size = "80" name = "nome" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this);return SomenteLetras(event)"/></td>
 					</tr>
 					<tr>
 						<td>Endereço:</td>
-						<td><input type = "text" size = "80" name = "endereco" class="obrigatorio" onkeypress="ConverteMaiuscula(this)" /></td>
+						<td><input type = "text" size = "80" name = "endereco" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
 					</tr>
 					<tr>
 						<td>Cidade:</td>
-						<td><input type = "text" size = "50" name = "cidade" class="obrigatorio" onkeypress="ConverteMaiuscula(this)" /></td>
+						<td><input type = "text" size = "50" name = "cidade" class="obrigatorio" onblur = "ConverteMaiuscula(this)" onkeypress="ConverteMaiuscula(this)" /></td>
 					</tr>
 					<tr>
 						<td>Sexo:</td>
 						<td>
-							<select>
+							<select id = "sexo">
 								<option value = "semSexo" >---Escolher Sexo---</option>
 								<option value = "Feminino" >Feminino</option>
 								<option value = "Masculino" >Masculino</option>
@@ -43,26 +88,28 @@
 					</tr>
 					<tr>
 						<td>E-mail(Login):</td>
-						<td><input type = "text" size = "40" name = "email" class="obrigatorio" onchange="validaEmail(this)" /></td>
+						<td><input type = "email" size = "40" class="obrigatorio" /></td>
 					</tr>
 					<tr>
 						<td>Senha:</td>
-						<td><input type = "password" size = "15" name = "senha" class="obrigatorio"  /></td>
+						<td><input type = "password" size = "15" id = "senha" name = "senha" class="obrigatorio" onkeypress = "return VerificaSenha(event)" /></td>
 					</tr>
 					<tr>
 						<td>Receber promoções:</td>
 						<td>
-							<input type = "radio" name = "rdPromocoes" value = "sim" />Sim <br/>
-							<input type = "radio" name = "rdPromocoes" value = "nao" />Nâo
+							<input type = "checkbox" id = "sim" value = "sim" onclick = "VerificaCheckbox(this.id)" />Sim
+							<span id = "msgPromocao">("A qualquer momento você poderá cancelar o recebimento dos e-mail's de promoção </br>
+							enviando um e-mail com o assunto STOP MAIL para o endereço contato@estacio.br")</span></br>
+							<input type = "checkbox" id = "nao" value = "nao" onclick = "VerificaCheckbox(this.id)" checked />Não
 						</td>
 					</tr>
 					<tr>
 						<td>Obs:</td>
-						<td><textarea maxlength = "200" ></textarea></td>
+						<td><textarea id = "obs" name = "obs" onkeypress = "MaxCaracteres();" ></textarea></td>
 					</tr>
 					<tr>
 						<td colspan = "2" >
-							<input type = "submit" value = "Enviar" />
+							<input type = "submit" value = "Enviar" onclick = "alert(IsEmail(document.getElementById('email').value))" />
 							<input type = "button" value = "Valores" />
 						</td>
 					</tr>
