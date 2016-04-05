@@ -3,7 +3,7 @@
 //***********************************//
 function CampoObrigatorio(form) {
     for (var i = 0; i < form.elements.length; i++) {
-        if (form.elements[i].type == "text" || form.elements[i].type = "email" ||form.elements[i].type == "password") {
+        if (form.elements[i].type == "text" ||form.elements[i].type == "password" || form.elements[i].type == "email") {
             if (form.elements[i].value == "" && form.elements[i].className == "obrigatorio") {
                 alert("O campo: " + form.elements[i].name + " \u00e9 obrigat\u00f3rio.");
                 form.elements[i].focus();
@@ -113,6 +113,22 @@ function cpf_mask(v){
 }
 //***********************************//
 //*********FIM FORMATAÇÃO CPF********//
+//***********************************//
+
+//***********************************//
+//****INICIO FORMATAÇÃO TELEFONE*****//
+//***********************************//
+function mascaraTel(telefone){ 
+	if(telefone.value.length == 0)
+		telefone.value = '(' + telefone.value;
+	if(telefone.value.length == 3)
+		telefone.value = telefone.value + ') ';
+	if(telefone.value.length == 9)
+		telefone.value = telefone.value + '-';
+  
+}
+//***********************************//
+//******FIM FORMATAÇÃO TELEFONE******//
 //***********************************//
 
 //***********************************//
